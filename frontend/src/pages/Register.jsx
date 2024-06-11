@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,12 @@ import {toast} from 'sonner'
 
 function Register() {
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(localStorage.getItem('chat-app-user')){
+      navigate('/');
+    }
+  }, []);
 
   const {
     register, 
@@ -50,10 +56,10 @@ function Register() {
         email: data.email,
         password: data.password
       })
-      console.log(response);
+      localStorage.setItem('chat-app-user', JSON.stringify(response.data.data));
       const successMsg = response.data.message;
       toast.success(successMsg);
-      navigate('/login');
+      navigate('/');
     } catch (error) {
       const errorMsg = error.response.data.message;
       toast.error(errorMsg);

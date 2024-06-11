@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,12 @@ import {toast} from 'sonner'
 
 function Login() {
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(localStorage.getItem('chat-app-user')){
+      navigate('/');
+    }
+  }, []);
 
   const {
     register, 
@@ -32,6 +38,7 @@ function Login() {
         username: data.username,
         password: data.password
       })
+      localStorage.setItem('chat-app-user', JSON.stringify(response.data.data));
       const successMsg = response.data.message;
       toast.success(successMsg);
       navigate('/');
@@ -81,7 +88,7 @@ function Login() {
           >
             {isSubmitting ? "Loading" : "Login"}
           </button>
-          <span>Don't have account? <Link to='/register' className='text-indigo-600'>Register</Link></span>
+          <span>Don't have an account? <Link to='/register' className='text-indigo-600'>Register</Link></span>
         </form>
       </div>
     </div>

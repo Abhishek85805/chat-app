@@ -66,11 +66,18 @@ const login = async(req, res, next) => {
                 message: "Account doesn't exist"
             })
         }
+        
+        const isPasswordCorrect = await bcrypt.compare(password, user.password);
+        if(!isPasswordCorrect){
+            return res.status(401).json({
+                message: "Password incorrect"
+            })
+        }
 
-        const token = setUser(user);
-        console.log(token);
+        // const token = setUser(user);
+        // console.log(token);
     
-        return res.cookie("uid", token)
+        return res
         .status(201)
         .json({
             data: user,
