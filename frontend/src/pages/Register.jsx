@@ -39,7 +39,6 @@ function Register() {
   }
 
   const onSubmit = async(data) => {
-    // Custom validation example
     if (data.password !== data.confirmPassword) {
       setError('confirmPassword', {
         type: 'manual',

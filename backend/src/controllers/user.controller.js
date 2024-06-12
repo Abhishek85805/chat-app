@@ -74,10 +74,15 @@ const login = async(req, res, next) => {
             })
         }
 
-        // const token = setUser(user);
-        // console.log(token);
+        const token = setUser(user);
+        //const secret = process.env.SECRET || "abhishekchauhanQAZwsx@85805";
+        // const token = jwt.sign({
+        //     _id: user._id 
+        // }, secret)
+        console.log(token);
     
         return res
+        .cookie('uid', token, {httpOnly: true})
         .status(201)
         .json({
             data: user,
