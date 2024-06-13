@@ -23,6 +23,14 @@ const userSchema = new mongoose.Schema(
         password: {
             type: String,
             required: true
+        },
+
+        isAvatarImageSet: {
+            type: Boolean
+        },
+
+        avatarImage: {
+            type: String
         }
     },
     {
