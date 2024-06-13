@@ -1,6 +1,5 @@
 import User from '../models/user.model.js';
 import bcrypt from 'bcrypt';
-import {setUser} from '../services/auth.js';
 
 const register = async(req, res, next) => { 
     try {
@@ -73,9 +72,6 @@ const login = async(req, res, next) => {
                 message: "Password incorrect"
             })
         }
-
-        // const token = setUser(user);
-        // console.log(token);
     
         return res
         .status(201)
