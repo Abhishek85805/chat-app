@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import dbConnection from './db/index.js';
 
 const app = express();
 
@@ -12,6 +13,13 @@ app.use(express.json());
 
 const port = process.env.PORT;
 
-app.listen(port, ()=>{
-    console.log(`Listen to the port ${port}`);
-});
+dbConnection()
+.then(()=>{
+    app.listen(port, ()=>{
+        console.log(`Listen to the port ${port}`);
+    });    
+})
+.catch((err)=>{
+    console.log('MongoDB connection failed', err);
+})
+
